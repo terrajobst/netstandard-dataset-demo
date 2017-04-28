@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary_NetStandard20\ClassLibrary_NetStandard20.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="northwind.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
