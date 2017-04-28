@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Data;
 
 namespace ClassLibrary_NetStandard20
@@ -9,7 +10,13 @@ namespace ClassLibrary_NetStandard20
         {
             var result = "";
             var dataSet = new DataSet();
-            dataSet.ReadXml(AppDomain.CurrentDomain.BaseDirectory + @"northwind.xml");
+
+            using (var zipFile = new ZipFile(AppDomain.CurrentDomain.BaseDirectory + @"northwind.zip"))
+            {
+                var entry = zipFile.GetEntry("northwind.xml");
+                using (var xmlStream = zipFile.GetInputStream(entry))
+                    dataSet.ReadXml(xmlStream);
+            }
 
             var customerTable = dataSet.Tables["Customers"];
 
